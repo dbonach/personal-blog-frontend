@@ -20,4 +20,8 @@ export class AuthService {
   registration(user: User): Observable<User> {
     return this.http.post<User>(`${environment.baseUrl}/user/registration`, user)
   }
+
+  userIsLogged() {
+    return environment.token !== ''
+  }
 }
