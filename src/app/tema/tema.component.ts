@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Theme } from '../model/Theme';
+import { ThemeService } from '../service/theme.service';
 
 @Component({
   selector: 'app-tema',
@@ -9,12 +11,32 @@ import { environment } from 'src/environments/environment';
 })
 export class TemaComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  theme: Theme = new Theme()
+  themeList: Theme[]
+
+  constructor(
+    private router: Router,
+    private themeService: ThemeService
+  ) { }
 
   ngOnInit() {
     if (environment.token === '') {
       this.router.navigate(['/entrar'])
     }
+  }
+
+  register() {
+    console.log(this.theme);
+
+    this.themeService.postTheme(this.theme).subscribe({
+      next: data => {
+        console.log(data);
+        this.theme = new Theme();
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    })
   }
 
 }

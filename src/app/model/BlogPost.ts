@@ -1,4 +1,4 @@
-import { BlogPostTheme } from "./BlogPostTheme"
+import { Theme } from "./Theme"
 import { User } from "./User"
 
 export class BlogPost {
@@ -7,5 +7,5 @@ export class BlogPost {
   public content: string
   public date: Date
   public user: User
-  public theme: BlogPostTheme
+  public theme: Theme
 }
