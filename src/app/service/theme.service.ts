@@ -15,7 +15,19 @@ export class ThemeService {
     return this.http.get<Theme[]>(`${environment.baseUrl}/theme`, { headers: { 'Authorization': environment.token } })
   }
 
+  getByIdTheme(id: number): Observable<Theme> {
+    return this.http.get<Theme>(`${environment.baseUrl}/theme/${id}`, { headers: { 'Authorization': environment.token } })
+  }
+
   postTheme(theme: Theme): Observable<Theme> {
     return this.http.post<Theme>(`${environment.baseUrl}/theme`, theme, { headers: { 'Authorization': environment.token } })
+  }
+
+  putTheme(theme: Theme): Observable<Theme> {
+    return this.http.put<Theme>(`${environment.baseUrl}/theme`, theme, { headers: { 'Authorization': environment.token } })
+  }
+
+  deleteTheme(id: number) {
+    return this.http.delete(`${environment.baseUrl}/theme/${id}`, { headers: { 'Authorization': environment.token } })
   }
 }
