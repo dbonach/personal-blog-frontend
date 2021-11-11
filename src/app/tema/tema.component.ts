@@ -23,14 +23,28 @@ export class TemaComponent implements OnInit {
     if (environment.token === '') {
       this.router.navigate(['/entrar'])
     }
+
+    this.findAllThemes()
+  }
+
+  findAllThemes() {
+    this.themeService.getAllTheme().subscribe({
+      next: data => {
+        this.themeList = data
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    })
   }
 
   register() {
-    console.log(this.theme);
-
     this.themeService.postTheme(this.theme).subscribe({
       next: data => {
-        console.log(data);
+        let newTheme = new Theme()
+        newTheme = data
+        this.themeList.push(newTheme)
+
         this.theme = new Theme();
       },
       error: error => {
