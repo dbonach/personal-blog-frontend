@@ -24,4 +24,8 @@ export class AuthService {
   userIsLogged() {
     return environment.token !== ''
   }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${environment.baseUrl}/user/${id}`, { headers: { 'Authorization': environment.token } })
+  }
 }
