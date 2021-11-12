@@ -60,6 +60,8 @@
             <p class="card-text mt-3">{{ blogPost.content }}</p>
             <p class="card-text"><small class="text-muted">{{ blogPost.date | date: 'dd/MM/yyyy' }} às {{ blogPost.date
                 | date: 'HH:mm' }}</small></p>
+            <a [routerLink]="['/postagem-edit', blogPost.id]" class="text-info mr-3">Editar</a>
+            <a [routerLink]="['/postagem-delete', blogPost.id]" class="text-danger">Apagar</a>
           </div>
         </div>
       </div>
