@@ -85,9 +85,6 @@ export class InicioComponent implements OnInit {
     this.postagemService.postPostagens(this.blogPost).subscribe({
       next: data => {
         alert('Postagem realizada com sucesso!')
-        console.log(this.user);
-        console.log(data);
-
         this.blogPostList.push(data)
         this.userBlogPostList = this.blogPostList.filter(post => post.user.id == environment.id)
         this.blogPost = new BlogPost()
