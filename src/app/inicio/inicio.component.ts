@@ -45,8 +45,6 @@ export class InicioComponent implements OnInit {
     this.themeService.getAllTheme().subscribe({
       next: data => {
         this.themeList = data
-        console.log(this.themeList);
-
       },
       error: error => {
         console.error('There was an error!', error);
