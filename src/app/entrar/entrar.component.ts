@@ -26,6 +26,10 @@ export class EntrarComponent implements OnInit {
     this.auth.login(this.userLogin).subscribe((res: UserLogin) => {
       this.userLogin = res
 
+      environment.userLogin = this.userLogin
+
+      environment.user = this.userLogin.user
+      environment.userType = this.userLogin.userType
       environment.token = this.userLogin.token
       environment.name = this.userLogin.name
       environment.photoUri = this.userLogin.photoUri

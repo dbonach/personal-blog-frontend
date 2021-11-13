@@ -2,13 +2,27 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { BlogPost } from "src/app/model/BlogPost";
+import { User } from "src/app/model/User";
+
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8080',
   token: '',
   name: '',
+  user: '',
+  userType: '',
   id: 0,
-  photoUri: ''
+  photoUri: '',
+  userLogin: {
+    id: -1,
+    name: '',
+    user: '',
+    hashcode: '',
+    token: '',
+    photoUri: '',
+    userType: ''
+  }
 };
 
 /*
