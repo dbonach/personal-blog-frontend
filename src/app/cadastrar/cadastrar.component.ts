@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../model/User';
-import { UserLogin } from '../model/UserLogin';
+import { AlertasService } from '../service/alertas.service';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class CadastrarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private alertas: AlertasService
   ) { }
 
   ngOnInit() {
@@ -36,15 +37,18 @@ export class CadastrarComponent implements OnInit {
     this.user.userType = this.type
 
     if (this.user.hashcode !== this.password) {
-      alert('As senhas são diferentes.')
+      this.alertas.showAlertDanger('As senhas são diferentes.')
     } else {
-      this.authService.registration(this.user).subscribe((res: User) => {
-        this.user = res
-        alert('Usuario cadastrado com sucesso!')
-        this.router.navigate(['/'])
-      }, err => {
-        if (err.status == 500) {
-          alert('Usuário ou senha estão incorretos!')
+
+      this.authService.registration(this.user).subscribe({
+        next: data => {
+          this.user = data
+          this.alertas.showAlertSuccess('Usuario cadastrado com sucesso!')
+          this.router.navigate(['/'])
+        },
+        error: error => {
+          console.error('There was an error!', error);
+          this.alertas.showAlertDanger('Ocorreu um erro com a requisição')
         }
       })
     }

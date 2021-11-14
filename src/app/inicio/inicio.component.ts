@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { BlogPost } from '../model/BlogPost';
 import { Theme } from '../model/Theme';
 import { User } from '../model/User';
+import { AlertasService } from '../service/alertas.service';
 import { AuthService } from '../service/auth.service';
 import { PostagemService } from '../service/postagem.service';
 import { ThemeService } from '../service/theme.service';
@@ -29,7 +30,8 @@ export class InicioComponent implements OnInit {
     private router: Router,
     private postagemService: PostagemService,
     private themeService: ThemeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertas: AlertasService
   ) { }
 
   ngOnInit(): void {
@@ -84,7 +86,7 @@ export class InicioComponent implements OnInit {
 
     this.postagemService.postPostagens(this.blogPost).subscribe({
       next: data => {
-        alert('Postagem realizada com sucesso!')
+        this.alertas.showAlertSuccess('Postagem realizada com sucesso!')
         this.blogPostList.push(data)
         this.userBlogPostList = this.blogPostList.filter(post => post.user.id == environment.id)
         this.blogPost = new BlogPost()

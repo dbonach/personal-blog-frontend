@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogPost } from 'src/app/model/BlogPost';
-import { Theme } from 'src/app/model/Theme';
+import { AlertasService } from 'src/app/service/alertas.service';
 import { PostagemService } from 'src/app/service/postagem.service';
-import { ThemeService } from 'src/app/service/theme.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,7 +18,7 @@ export class PostagemDeleteComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private postagemService: PostagemService,
-    private themeService: ThemeService
+    private alertas: AlertasService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +39,7 @@ export class PostagemDeleteComponent implements OnInit {
       },
       error: error => {
         console.error('There was an error!', error);
+        this.alertas.showAlertDanger("findPostagemById fetch error")
       }
     })
   }
@@ -47,11 +47,12 @@ export class PostagemDeleteComponent implements OnInit {
   delete() {
     this.postagemService.deletePostagemById(this.blogPost.id).subscribe({
       next: () => {
-        alert("Postagem apagada com sucesso!");
+        this.alertas.showAlertSuccess("Postagem apagada com sucesso!")
         this.router.navigate(["/inicio"])
       },
       error: error => {
         console.error('There was an error!', error);
+        this.alertas.showAlertDanger("Error para deletar postagem")
       }
     })
   }
@@ -67,5 +68,4 @@ export class PostagemDeleteComponent implements OnInit {
 
     return newBlogPost
   }
-
 }

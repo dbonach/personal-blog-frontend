@@ -9,5 +9,5 @@ import { AuthService } from './service/auth.service';
 export class AppComponent {
   title = 'personal-blog-frontend';
 
-  constructor(public auth: AuthService) { }
+  constructor(public authService: AuthService) { }
 }

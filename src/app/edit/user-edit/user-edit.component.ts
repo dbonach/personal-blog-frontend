@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/User';
 import { UserLogin } from 'src/app/model/UserLogin';
+import { AlertasService } from 'src/app/service/alertas.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { environment } from 'src/environments/environment';
 
@@ -19,7 +20,8 @@ export class UserEditComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertas: AlertasService
   ) { }
 
   ngOnInit(): void {
@@ -50,13 +52,13 @@ export class UserEditComponent implements OnInit {
       user = this.updateUserInfo(user)
       this.authService.registration(user).subscribe({
         next: data => {
-          alert('Informações atualizadas com sucesso!')
+          this.alertas.showAlertSuccess('Informações atualizadas com sucesso!')
           environment.token = ''
           this.router.navigate(['/entrar'])
         },
         error: error => {
           console.error('There was an error!', error);
-          alert('Usuário ou senha estão incorretos!')
+          this.alertas.showAlertDanger('Usuário ou senha estão incorretos!')
         }
       })
     }
@@ -73,17 +75,4 @@ export class UserEditComponent implements OnInit {
     return user
   }
 
-  // private updateUserLoginInfo(user: User): UserLogin {
-  //   let userLogin = new UserLogin()
-
-  //   userLogin.id = user.id
-  //   userLogin.name = user.name
-  //   userLogin.user = user.user
-  //   userLogin.hashcode = user.hashcode
-  //   // userLogin.token = user.token
-  //   userLogin.photoUri = user.photoUri
-  //   userLogin.userType = user.userType
-
-  //   return userLogin
-  // }
 }
